@@ -25,9 +25,11 @@ namespace Nomad_Simulator {
         public double Poll(Plane[] obstacles) {
             double shortestDistance = MAX_RANGE;
 
+            // Find the intersection distance (if it exists) with all the planes and take the shortest
             for (int i = 0; i < obstacles.Length; i++) {
                 double distance = obstacles[i].intersects(this);
                 if (distance < shortestDistance) {
+                    // Add some jitter to the actual distance to simulate real sensor
                     shortestDistance = distance + ((rand.NextDouble() * Jitter * 2) - Jitter);
                 }
             }

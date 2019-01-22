@@ -43,11 +43,13 @@
             this.DistanceSldr = new System.Windows.Forms.TrackBar();
             this.PollBtn = new System.Windows.Forms.Button();
             this.RecordBtn = new System.Windows.Forms.Button();
-            this.BackgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.RecordingWorker = new System.ComponentModel.BackgroundWorker();
             this.JitterLabel = new System.Windows.Forms.Label();
             this.JitterSldr = new System.Windows.Forms.TrackBar();
             this.VerticalSldr = new System.Windows.Forms.TrackBar();
             this.HorizontalSldr = new System.Windows.Forms.TrackBar();
+            this.DistanceValueLabel = new System.Windows.Forms.Label();
+            this.JitterValueLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DistanceSldr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.JitterSldr)).BeginInit();
@@ -217,7 +219,7 @@
             // 
             // BackgroundWorker1
             // 
-            this.BackgroundWorker1.WorkerSupportsCancellation = true;
+            this.RecordingWorker.WorkerSupportsCancellation = true;
             // 
             // JitterLabel
             // 
@@ -263,11 +265,33 @@
             this.HorizontalSldr.Value = 485;
             this.HorizontalSldr.Scroll += new System.EventHandler(this.HorizontalSldr_Scroll);
             // 
+            // DistanceValueLabel
+            // 
+            this.DistanceValueLabel.AutoSize = true;
+            this.DistanceValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DistanceValueLabel.Location = new System.Drawing.Point(191, 558);
+            this.DistanceValueLabel.Name = "DistanceValueLabel";
+            this.DistanceValueLabel.Size = new System.Drawing.Size(32, 17);
+            this.DistanceValueLabel.TabIndex = 13;
+            this.DistanceValueLabel.Text = "100";
+            // 
+            // JitterValueLabel
+            // 
+            this.JitterValueLabel.AutoSize = true;
+            this.JitterValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.JitterValueLabel.Location = new System.Drawing.Point(188, 617);
+            this.JitterValueLabel.Name = "JitterValueLabel";
+            this.JitterValueLabel.Size = new System.Drawing.Size(16, 17);
+            this.JitterValueLabel.TabIndex = 14;
+            this.JitterValueLabel.Text = "5";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 661);
+            this.Controls.Add(this.JitterValueLabel);
+            this.Controls.Add(this.DistanceValueLabel);
             this.Controls.Add(this.HorizontalSldr);
             this.Controls.Add(this.VerticalSldr);
             this.Controls.Add(this.JitterSldr);
@@ -309,11 +333,13 @@
         private System.Windows.Forms.TrackBar DistanceSldr;
         private System.Windows.Forms.Button PollBtn;
         private System.Windows.Forms.Button RecordBtn;
-        private System.ComponentModel.BackgroundWorker BackgroundWorker1;
+        private System.ComponentModel.BackgroundWorker RecordingWorker;
         private System.Windows.Forms.Label JitterLabel;
         private System.Windows.Forms.TrackBar JitterSldr;
         private System.Windows.Forms.TrackBar VerticalSldr;
         private System.Windows.Forms.TrackBar HorizontalSldr;
+        private System.Windows.Forms.Label DistanceValueLabel;
+        private System.Windows.Forms.Label JitterValueLabel;
     }
 }
 

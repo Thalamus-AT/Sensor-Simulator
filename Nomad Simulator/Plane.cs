@@ -20,18 +20,24 @@ namespace Nomad_Simulator {
             bottomLeftPoint = blp;
             bottonRightPoint = brp;
 
+            // Calculat the normal that defines the plane
             normal = CrossProduct(SubtractVector(trp, tlp), SubtractVector(blp, tlp));
         }
 
+        // Checks if a sensor can see the plane, and if so, at what distance
         public double intersects(Sensor s) {
+
+            // Check if the sensor is parallel to the plane
             if (DotProduct(normal, s.Direction) == 0) {
                 return float.MaxValue;
             }
 
+            // Calculate the distance and the point of the intersection
             double t = (DotProduct(normal, topLeftPoint) - DotProduct(normal, s.Position)) / DotProduct(normal, s.Direction);
             double dist = VectorLength(ScaleVector(s.Direction, (float) t));
             V3 intersect = AddVector(s.Position, ScaleVector(s.Direction, (float)t));
 
+            // Check if the intersection point is within the bounds of the plane
             if (intersect.X >= TopLeftPoint.X && intersect.X <= BottonRightPoint.X &&
                 intersect.Y >= TopLeftPoint.Y && intersect.Y <= BottonRightPoint.Y &&
                 intersect.Z >= TopLeftPoint.Z && intersect.Z <= BottonRightPoint.Z) {
