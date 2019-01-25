@@ -175,20 +175,26 @@ namespace Nomad_Simulator {
         }
 
         private void MainForm_Paint(object sender, PaintEventArgs e) {
+            // Create the necessary graphics objects
             Graphics g = e.Graphics;
             Pen pen = new Pen(Brushes.LightGray);
             SolidBrush brush = new SolidBrush(Color.Red);
 
+            // Calculate the diameter of the sensing range based on the distance
             int diameter = (int) (sensorCircleDiam * DistanceSldr.Value);
 
             for (int i = 0; i < sensors.Length; i++) {
                 Sensor curr = sensors[i];
+
+                // Calculate the centre point of the sensor's sensing range
                 int xCentre = (int) (curr.Position.X + (curr.Direction.X * DistanceSldr.Value));
                 int yCentre = (int)(curr.Position.Y + (curr.Direction.Y * DistanceSldr.Value));
 
+                // Draw the small dot at the centre
                 Rectangle smallRect = new Rectangle(xCentre, yCentre, 5, 5);
                 g.FillEllipse(brush, smallRect);
 
+                // Draw the surrounding circle representing the full sensing range.
                 Rectangle largeRect = new Rectangle(xCentre - (diameter / 2), yCentre - (diameter / 2), diameter, diameter);
                 g.DrawEllipse(pen, largeRect);
             }
