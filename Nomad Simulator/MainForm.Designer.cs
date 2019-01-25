@@ -50,6 +50,7 @@
             this.HorizontalSldr = new System.Windows.Forms.TrackBar();
             this.DistanceValueLabel = new System.Windows.Forms.Label();
             this.JitterValueLabel = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DistanceSldr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.JitterSldr)).BeginInit();
@@ -106,6 +107,7 @@
             // SensorLabel13
             // 
             this.SensorLabel13.AutoSize = true;
+            this.SensorLabel13.BackColor = System.Drawing.SystemColors.Control;
             this.SensorLabel13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SensorLabel13.Location = new System.Drawing.Point(114, 17);
             this.SensorLabel13.Name = "SensorLabel13";
@@ -217,7 +219,7 @@
             this.RecordBtn.UseVisualStyleBackColor = true;
             this.RecordBtn.Click += new System.EventHandler(this.RecordBtn_Click);
             // 
-            // BackgroundWorker1
+            // RecordingWorker
             // 
             this.RecordingWorker.WorkerSupportsCancellation = true;
             // 
@@ -306,6 +308,7 @@
             this.MinimumSize = new System.Drawing.Size(1000, 700);
             this.Name = "MainForm";
             this.Text = "Nomad Simulator";
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.MainForm_Paint);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DistanceSldr)).EndInit();
@@ -340,6 +343,7 @@
         private System.Windows.Forms.TrackBar HorizontalSldr;
         private System.Windows.Forms.Label DistanceValueLabel;
         private System.Windows.Forms.Label JitterValueLabel;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 

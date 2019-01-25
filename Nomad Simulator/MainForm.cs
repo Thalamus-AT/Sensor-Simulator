@@ -20,6 +20,8 @@ namespace Nomad_Simulator {
 
         private bool recording;     // Whether the form is currently recording
 
+        private int sensorCircleDiam = 1;
+
         private Label[] sensorLabels;
         private Sensor[] sensors;
         private Plane plane;
@@ -60,6 +62,8 @@ namespace Nomad_Simulator {
             plane.Move(new V3(0, 0, -plane.TopLeftPoint.Z - DistanceSldr.Value));
             string num = DistanceSldr.Value.ToString();
             DistanceValueLabel.Text = num;
+
+            Refresh();
         }
 
         private void JitterSldr_ValueChanged(object sender, EventArgs e) {
@@ -170,5 +174,24 @@ namespace Nomad_Simulator {
             Console.WriteLine(e.Result.ToString() + " Recordings made");
         }
 
+        private void MainForm_Paint(object sender, PaintEventArgs e) {
+            Graphics g = e.Graphics;
+            Pen pen = new Pen(Brushes.LightGray);
+            SolidBrush brush = new SolidBrush(Color.Red);
+
+            int diameter = (int) (sensorCircleDiam * DistanceSldr.Value);
+
+            for (int i = 0; i < sensors.Length; i++) {
+                Sensor curr = sensors[i];
+                int xCentre = (int) (curr.Position.X + (curr.Direction.X * DistanceSldr.Value));
+                int yCentre = (int)(curr.Position.Y + (curr.Direction.Y * DistanceSldr.Value));
+
+                Rectangle smallRect = new Rectangle(xCentre, yCentre, 5, 5);
+                g.FillEllipse(brush, smallRect);
+
+                Rectangle largeRect = new Rectangle(xCentre - (diameter / 2), yCentre - (diameter / 2), diameter, diameter);
+                g.DrawEllipse(pen, largeRect);
+            }
+        }
     }
 }
