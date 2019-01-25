@@ -304,9 +304,14 @@
             this.Controls.Add(this.DistanceLabel);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.PlanePnl);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1000, 700);
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(1000, 700);
             this.Name = "MainForm";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nomad Simulator";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MainForm_Paint);
             this.panel1.ResumeLayout(false);
