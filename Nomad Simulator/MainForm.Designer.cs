@@ -51,11 +51,15 @@
             this.DistanceValueLabel = new System.Windows.Forms.Label();
             this.JitterValueLabel = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.SensorAngleOffsetValueLabel = new System.Windows.Forms.Label();
+            this.SensorAngleOffsetSldr = new System.Windows.Forms.TrackBar();
+            this.SensorAngleOffsetLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DistanceSldr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.JitterSldr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VerticalSldr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HorizontalSldr)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SensorAngleOffsetSldr)).BeginInit();
             this.SuspendLayout();
             // 
             // PlanePnl
@@ -179,7 +183,7 @@
             // 
             this.DistanceLabel.AutoSize = true;
             this.DistanceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DistanceLabel.Location = new System.Drawing.Point(12, 538);
+            this.DistanceLabel.Location = new System.Drawing.Point(776, 423);
             this.DistanceLabel.Name = "DistanceLabel";
             this.DistanceLabel.Size = new System.Drawing.Size(67, 17);
             this.DistanceLabel.TabIndex = 0;
@@ -187,7 +191,7 @@
             // 
             // DistanceSldr
             // 
-            this.DistanceSldr.Location = new System.Drawing.Point(12, 558);
+            this.DistanceSldr.Location = new System.Drawing.Point(779, 443);
             this.DistanceSldr.Maximum = 500;
             this.DistanceSldr.Minimum = 10;
             this.DistanceSldr.Name = "DistanceSldr";
@@ -227,7 +231,7 @@
             // 
             this.JitterLabel.AutoSize = true;
             this.JitterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.JitterLabel.Location = new System.Drawing.Point(14, 597);
+            this.JitterLabel.Location = new System.Drawing.Point(776, 482);
             this.JitterLabel.Name = "JitterLabel";
             this.JitterLabel.Size = new System.Drawing.Size(43, 17);
             this.JitterLabel.TabIndex = 9;
@@ -235,12 +239,12 @@
             // 
             // JitterSldr
             // 
-            this.JitterSldr.Location = new System.Drawing.Point(17, 617);
+            this.JitterSldr.Location = new System.Drawing.Point(779, 502);
             this.JitterSldr.Maximum = 50;
             this.JitterSldr.Name = "JitterSldr";
             this.JitterSldr.Size = new System.Drawing.Size(172, 45);
             this.JitterSldr.TabIndex = 10;
-            this.JitterSldr.TickFrequency = 20;
+            this.JitterSldr.TickFrequency = 5;
             this.JitterSldr.Value = 5;
             this.JitterSldr.ValueChanged += new System.EventHandler(this.JitterSldr_ValueChanged);
             // 
@@ -271,7 +275,7 @@
             // 
             this.DistanceValueLabel.AutoSize = true;
             this.DistanceValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DistanceValueLabel.Location = new System.Drawing.Point(191, 558);
+            this.DistanceValueLabel.Location = new System.Drawing.Point(952, 443);
             this.DistanceValueLabel.Name = "DistanceValueLabel";
             this.DistanceValueLabel.Size = new System.Drawing.Size(32, 17);
             this.DistanceValueLabel.TabIndex = 13;
@@ -281,17 +285,51 @@
             // 
             this.JitterValueLabel.AutoSize = true;
             this.JitterValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.JitterValueLabel.Location = new System.Drawing.Point(188, 617);
+            this.JitterValueLabel.Location = new System.Drawing.Point(952, 502);
             this.JitterValueLabel.Name = "JitterValueLabel";
             this.JitterValueLabel.Size = new System.Drawing.Size(16, 17);
             this.JitterValueLabel.TabIndex = 14;
             this.JitterValueLabel.Text = "5";
+            // 
+            // SensorAngleOffsetValueLabel
+            // 
+            this.SensorAngleOffsetValueLabel.AutoSize = true;
+            this.SensorAngleOffsetValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SensorAngleOffsetValueLabel.Location = new System.Drawing.Point(952, 564);
+            this.SensorAngleOffsetValueLabel.Name = "SensorAngleOffsetValueLabel";
+            this.SensorAngleOffsetValueLabel.Size = new System.Drawing.Size(24, 17);
+            this.SensorAngleOffsetValueLabel.TabIndex = 17;
+            this.SensorAngleOffsetValueLabel.Text = "25";
+            // 
+            // SensorAngleOffsetSldr
+            // 
+            this.SensorAngleOffsetSldr.Location = new System.Drawing.Point(779, 564);
+            this.SensorAngleOffsetSldr.Maximum = 80;
+            this.SensorAngleOffsetSldr.Name = "SensorAngleOffsetSldr";
+            this.SensorAngleOffsetSldr.Size = new System.Drawing.Size(172, 45);
+            this.SensorAngleOffsetSldr.TabIndex = 16;
+            this.SensorAngleOffsetSldr.TickFrequency = 20;
+            this.SensorAngleOffsetSldr.Value = 25;
+            this.SensorAngleOffsetSldr.ValueChanged += new System.EventHandler(this.SensorAngleOffsetSldr_ValueChanged);
+            // 
+            // SensorAngleOffsetLabel
+            // 
+            this.SensorAngleOffsetLabel.AutoSize = true;
+            this.SensorAngleOffsetLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SensorAngleOffsetLabel.Location = new System.Drawing.Point(776, 544);
+            this.SensorAngleOffsetLabel.Name = "SensorAngleOffsetLabel";
+            this.SensorAngleOffsetLabel.Size = new System.Drawing.Size(139, 17);
+            this.SensorAngleOffsetLabel.TabIndex = 15;
+            this.SensorAngleOffsetLabel.Text = "Sensor Angle Offset:";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 661);
+            this.Controls.Add(this.SensorAngleOffsetValueLabel);
+            this.Controls.Add(this.SensorAngleOffsetSldr);
+            this.Controls.Add(this.SensorAngleOffsetLabel);
             this.Controls.Add(this.JitterValueLabel);
             this.Controls.Add(this.DistanceValueLabel);
             this.Controls.Add(this.HorizontalSldr);
@@ -320,6 +358,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.JitterSldr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VerticalSldr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HorizontalSldr)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SensorAngleOffsetSldr)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -349,6 +388,9 @@
         private System.Windows.Forms.Label DistanceValueLabel;
         private System.Windows.Forms.Label JitterValueLabel;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Label SensorAngleOffsetValueLabel;
+        private System.Windows.Forms.TrackBar SensorAngleOffsetSldr;
+        private System.Windows.Forms.Label SensorAngleOffsetLabel;
     }
 }
 

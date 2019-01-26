@@ -40,17 +40,18 @@ namespace Nomad_Simulator {
             plane = new Plane(new V3(400, 145, -100), new V3(600, 145, -100), new V3(400, 265, -100), new V3(600, 265, -100));
 
             // Initialise the set of nine sensors representing Nomad
-            double corner = Math.Sqrt(sensorAngleDiffRad / 2);
+            double dirOffset = Math.Tan(sensorAngleDiffRad);
+            double corner = Math.Sqrt(dirOffset / 2);
             Random rand = new Random();
             sensors = new Sensor[9];
             sensors[0] = new Sensor(new V3(500, 205, 0), new V3(-corner, -corner, -1), jitter, 30, rand);
-            sensors[1] = new Sensor(new V3(500, 205, 0), new V3(0, -sensorAngleDiffRad, -1), jitter, 30, rand);
+            sensors[1] = new Sensor(new V3(500, 205, 0), new V3(0, -dirOffset, -1), jitter, 30, rand);
             sensors[2] = new Sensor(new V3(500, 205, 0), new V3(corner, -corner, -1), jitter, 30, rand);
-            sensors[3] = new Sensor(new V3(500, 205, 0), new V3(-sensorAngleDiffRad, 0, -1), jitter, 30, rand);
+            sensors[3] = new Sensor(new V3(500, 205, 0), new V3(-dirOffset, 0, -1), jitter, 30, rand);
             sensors[4] = new Sensor(new V3(500, 205, 0), new V3(0, 0, -1), jitter, 30, rand);
-            sensors[5] = new Sensor(new V3(500, 205, 0), new V3(sensorAngleDiffRad, 0, -1), jitter, 30, rand);
+            sensors[5] = new Sensor(new V3(500, 205, 0), new V3(dirOffset, 0, -1), jitter, 30, rand);
             sensors[6] = new Sensor(new V3(500, 205, 0), new V3(-corner, corner, -1), jitter, 30, rand);
-            sensors[7] = new Sensor(new V3(500, 205, 0), new V3(0, sensorAngleDiffRad, -1), jitter, 30, rand);
+            sensors[7] = new Sensor(new V3(500, 205, 0), new V3(0, dirOffset, -1), jitter, 30, rand);
             sensors[8] = new Sensor(new V3(500, 205, 0), new V3(corner, corner, -1), jitter, 30, rand);
 
             recording = false;
@@ -103,6 +104,32 @@ namespace Nomad_Simulator {
             // Move the plane and the panel
             plane.Move(new V3(change, 0, 0));
             PlanePnl.Left += (int) change;
+        }
+
+        private void SensorAngleOffsetSldr_ValueChanged(object sender, EventArgs e) {
+            // Change the offset angle between the sensors
+            sensorAngleDiffDeg = SensorAngleOffsetSldr.Value;
+            sensorAngleDiffRad = (sensorAngleDiffDeg / 180) * Math.PI;
+            recalibrateSensors();
+
+            string num = SensorAngleOffsetSldr.Value.ToString();
+            SensorAngleOffsetValueLabel.Text = num;
+
+            Refresh();
+        }
+
+        private void recalibrateSensors() {
+            double dirOffset = Math.Tan(sensorAngleDiffRad);
+            double corner = Math.Sqrt(dirOffset / 2);
+            sensors[0].Direction = new V3(-corner, -corner, -1);
+            sensors[1].Direction = new V3(0, -dirOffset, -1);
+            sensors[2].Direction = new V3(corner, -corner, -1);
+            sensors[3].Direction = new V3(-dirOffset, 0, -1);
+            sensors[4].Direction = new V3(0, 0, -1);
+            sensors[5].Direction = new V3(dirOffset, 0, -1);
+            sensors[6].Direction = new V3(-corner, corner, -1);
+            sensors[7].Direction = new V3(0, dirOffset, -1);
+            sensors[8].Direction = new V3(corner, corner, -1);
         }
 
         private void PollBtn_Click(object sender, EventArgs e) {
