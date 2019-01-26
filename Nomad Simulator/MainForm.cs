@@ -17,6 +17,8 @@ namespace Nomad_Simulator {
 
         private int jitter = 5;     // Magnitude of the random amount added to sensor readings (+/- jitter)
         private int pollTime = 100; // Length of pause between polls when recording
+        private static double sensorAngleDiffDeg = 25;
+        private static double sensorAngleDiffRad = (sensorAngleDiffDeg / 180) * Math.PI;
 
         private bool recording;     // Whether the form is currently recording
 
@@ -38,17 +40,18 @@ namespace Nomad_Simulator {
             plane = new Plane(new V3(400, 145, -100), new V3(600, 145, -100), new V3(400, 265, -100), new V3(600, 265, -100));
 
             // Initialise the set of nine sensors representing Nomad
-            double corner = Math.Sqrt(Math.PI / 12);
+            double corner = Math.Sqrt(sensorAngleDiffRad / 2);
+            Random rand = new Random();
             sensors = new Sensor[9];
-            sensors[0] = new Sensor(new V3(500, 205, 0), new V3(-corner, -corner, -1), jitter);
-            sensors[1] = new Sensor(new V3(500, 205, 0), new V3(0, -Math.PI / 6, -1), jitter);
-            sensors[2] = new Sensor(new V3(500, 205, 0), new V3(corner, -corner, -1), jitter);
-            sensors[3] = new Sensor(new V3(500, 205, 0), new V3(-Math.PI / 6, 0, -1), jitter);
-            sensors[4] = new Sensor(new V3(500, 205, 0), new V3(0, 0, -1), jitter);
-            sensors[5] = new Sensor(new V3(500, 205, 0), new V3(Math.PI / 6, 0, -1), jitter);
-            sensors[6] = new Sensor(new V3(500, 205, 0), new V3(-corner, corner, -1), jitter);
-            sensors[7] = new Sensor(new V3(500, 205, 0), new V3(0, Math.PI / 6, -1), jitter);
-            sensors[8] = new Sensor(new V3(500, 205, 0), new V3(corner, corner, -1), jitter);
+            sensors[0] = new Sensor(new V3(500, 205, 0), new V3(-corner, -corner, -1), jitter, 30, rand);
+            sensors[1] = new Sensor(new V3(500, 205, 0), new V3(0, -sensorAngleDiffRad, -1), jitter, 30, rand);
+            sensors[2] = new Sensor(new V3(500, 205, 0), new V3(corner, -corner, -1), jitter, 30, rand);
+            sensors[3] = new Sensor(new V3(500, 205, 0), new V3(-sensorAngleDiffRad, 0, -1), jitter, 30, rand);
+            sensors[4] = new Sensor(new V3(500, 205, 0), new V3(0, 0, -1), jitter, 30, rand);
+            sensors[5] = new Sensor(new V3(500, 205, 0), new V3(sensorAngleDiffRad, 0, -1), jitter, 30, rand);
+            sensors[6] = new Sensor(new V3(500, 205, 0), new V3(-corner, corner, -1), jitter, 30, rand);
+            sensors[7] = new Sensor(new V3(500, 205, 0), new V3(0, sensorAngleDiffRad, -1), jitter, 30, rand);
+            sensors[8] = new Sensor(new V3(500, 205, 0), new V3(corner, corner, -1), jitter, 30, rand);
 
             recording = false;
 
@@ -193,9 +196,17 @@ namespace Nomad_Simulator {
                 if (500 < Math.Sqrt(Math.Pow(xCentre - curr.Position.X, 2) + Math.Pow(yCentre - curr.Position.Y, 2) + Math.Pow(DistanceSldr.Value, 2)))
                     continue;
 
-                // Draw the small dot at the centre
-                Rectangle smallRect = new Rectangle(xCentre, yCentre, 5, 5);
-                g.FillEllipse(brush, smallRect);
+                // Draw the small dot at the sensing points
+                Rectangle centreRect = new Rectangle(xCentre - 2, yCentre - 2, 4, 4);
+                g.FillEllipse(brush, centreRect);
+                Rectangle topRect = new Rectangle(xCentre - 2, yCentre - (diameter / 2) - 2, 4, 4);
+                g.FillEllipse(brush, topRect);
+                Rectangle bottomRect = new Rectangle(xCentre - 2, yCentre + (diameter / 2) - 2, 4, 4);
+                g.FillEllipse(brush, bottomRect);
+                Rectangle leftRect = new Rectangle(xCentre - (diameter / 2) - 2, yCentre - 2, 4, 4);
+                g.FillEllipse(brush, leftRect);
+                Rectangle rightRect = new Rectangle(xCentre + (diameter / 2) - 2, yCentre - 2, 4, 4);
+                g.FillEllipse(brush, rightRect);
 
                 // Draw the surrounding circle representing the full sensing range.
                 Rectangle largeRect = new Rectangle(xCentre - (diameter / 2), yCentre - (diameter / 2), diameter, diameter);

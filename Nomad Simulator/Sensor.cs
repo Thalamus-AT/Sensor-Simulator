@@ -13,17 +13,19 @@ namespace Nomad_Simulator {
         private V3 position;
         private V3 direction;
         private int jitter;
+        private int angleRange;
         private Random rand;
 
-        public Sensor(V3 pos, V3 dir, int jit) {
+        public Sensor(V3 pos, V3 dir, int jit, int angleRange, Random rand) {
             Position = pos;
             Direction = dir;
             Jitter = jit;
-            rand = new Random();
+            AngleRange = angleRange;
+            this.rand = rand;
         }
 
         public double Poll(Plane[] obstacles) {
-            double shortestDistance = MAX_RANGE;
+            double shortestDistance = MAX_RANGE + ((rand.NextDouble() * Jitter * 2) - Jitter);
 
             // Find the intersection distance (if it exists) with all the planes and take the shortest
             for (int i = 0; i < obstacles.Length; i++) {
@@ -42,5 +44,7 @@ namespace Nomad_Simulator {
         public V3 Direction { get => direction; set => direction = value; }
 
         public int Jitter { get => jitter; set => jitter = value; }
+
+        public int AngleRange { get => angleRange; set => angleRange = value; }
     }
 }

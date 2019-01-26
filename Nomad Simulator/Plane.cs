@@ -26,16 +26,27 @@ namespace Nomad_Simulator {
 
         // Checks if a sensor can see the plane, and if so, at what distance
         public double intersects(Sensor s) {
+            // Send Rays at the extremes of the sensor's range
+            double centreDistance = intersectsRay(s.Position, s.Direction);
+            double topDistance = intersectsRay(s.Position, AddVector(s.Direction, new V3(0, -Math.PI / 6, 0)));
+            double bottomDistance = intersectsRay(s.Position, AddVector(s.Direction, new V3(0, Math.PI / 6, 0)));
+            double leftDistance = intersectsRay(s.Position, AddVector(s.Direction, new V3(-Math.PI / 6, 0, 0)));
+            double rightDistance = intersectsRay(s.Position, AddVector(s.Direction, new V3(Math.PI / 6, 0, 0)));
 
+            return new[] { centreDistance, topDistance, bottomDistance, leftDistance, rightDistance }.Min();
+        }
+
+        private double intersectsRay(V3 pos, V3 dir) {
             // Check if the sensor is parallel to the plane
-            if (DotProduct(normal, s.Direction) == 0) {
-                return float.MaxValue;
+            if (DotProduct(normal, dir) == 0) {
+                Console.WriteLine("Sensor is Parallel to the Plane");
+                return double.MaxValue;
             }
 
             // Calculate the distance and the point of the intersection
-            double t = (DotProduct(normal, topLeftPoint) - DotProduct(normal, s.Position)) / DotProduct(normal, s.Direction);
-            double dist = VectorLength(ScaleVector(s.Direction, (float) t));
-            V3 intersect = AddVector(s.Position, ScaleVector(s.Direction, (float)t));
+            double t = (DotProduct(normal, topLeftPoint) - DotProduct(normal, pos)) / DotProduct(normal, dir);
+            double dist = VectorLength(ScaleVector(dir, (float)t));
+            V3 intersect = AddVector(pos, ScaleVector(dir, (float)t));
 
             // Check if the intersection point is within the bounds of the plane
             if (intersect.X >= TopLeftPoint.X && intersect.X <= BottonRightPoint.X &&

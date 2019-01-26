@@ -20,5 +20,9 @@ namespace Nomad_Simulator {
         public double X { get => X1; set => X1 = value; }
         public double Y { get => Y1; set => Y1 = value; }
         public double Z { get => Z1; set => Z1 = value; }
+
+        public string ToString() {
+            return "(" + X + "," + Y + "," + Z + ")";
+        }
     }
 }
