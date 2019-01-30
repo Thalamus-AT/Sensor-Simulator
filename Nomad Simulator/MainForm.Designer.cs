@@ -54,19 +54,24 @@
             this.SensorAngleOffsetValueLabel = new System.Windows.Forms.Label();
             this.SensorAngleOffsetSldr = new System.Windows.Forms.TrackBar();
             this.SensorAngleOffsetLabel = new System.Windows.Forms.Label();
+            this.OutPanel = new System.Windows.Forms.Panel();
+            this.PadLabel1 = new System.Windows.Forms.Label();
+            this.PadLabel2 = new System.Windows.Forms.Label();
+            this.PadLabel3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DistanceSldr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.JitterSldr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VerticalSldr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HorizontalSldr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SensorAngleOffsetSldr)).BeginInit();
+            this.OutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // PlanePnl
             // 
             this.PlanePnl.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.PlanePnl.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.PlanePnl.Location = new System.Drawing.Point(400, 145);
+            this.PlanePnl.Location = new System.Drawing.Point(400, 120);
             this.PlanePnl.Name = "PlanePnl";
             this.PlanePnl.Size = new System.Drawing.Size(200, 120);
             this.PlanePnl.TabIndex = 4;
@@ -322,11 +327,52 @@
             this.SensorAngleOffsetLabel.TabIndex = 15;
             this.SensorAngleOffsetLabel.Text = "Sensor Angle Offset:";
             // 
+            // OutPanel
+            // 
+            this.OutPanel.Controls.Add(this.PadLabel1);
+            this.OutPanel.Controls.Add(this.PadLabel2);
+            this.OutPanel.Controls.Add(this.PadLabel3);
+            this.OutPanel.Location = new System.Drawing.Point(12, 544);
+            this.OutPanel.Name = "OutPanel";
+            this.OutPanel.Size = new System.Drawing.Size(172, 50);
+            this.OutPanel.TabIndex = 18;
+            // 
+            // PadLabel1
+            // 
+            this.PadLabel1.AutoSize = true;
+            this.PadLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PadLabel1.Location = new System.Drawing.Point(15, 15);
+            this.PadLabel1.Name = "PadLabel1";
+            this.PadLabel1.Size = new System.Drawing.Size(44, 17);
+            this.PadLabel1.TabIndex = 19;
+            this.PadLabel1.Text = "00.00";
+            // 
+            // PadLabel2
+            // 
+            this.PadLabel2.AutoSize = true;
+            this.PadLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PadLabel2.Location = new System.Drawing.Point(65, 15);
+            this.PadLabel2.Name = "PadLabel2";
+            this.PadLabel2.Size = new System.Drawing.Size(44, 17);
+            this.PadLabel2.TabIndex = 20;
+            this.PadLabel2.Text = "00.00";
+            // 
+            // PadLabel3
+            // 
+            this.PadLabel3.AutoSize = true;
+            this.PadLabel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PadLabel3.Location = new System.Drawing.Point(115, 15);
+            this.PadLabel3.Name = "PadLabel3";
+            this.PadLabel3.Size = new System.Drawing.Size(44, 17);
+            this.PadLabel3.TabIndex = 21;
+            this.PadLabel3.Text = "00.00";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 661);
+            this.ClientSize = new System.Drawing.Size(984, 611);
+            this.Controls.Add(this.OutPanel);
             this.Controls.Add(this.SensorAngleOffsetValueLabel);
             this.Controls.Add(this.SensorAngleOffsetSldr);
             this.Controls.Add(this.SensorAngleOffsetLabel);
@@ -344,9 +390,9 @@
             this.Controls.Add(this.PlanePnl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1000, 700);
+            this.MaximumSize = new System.Drawing.Size(1000, 650);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(1000, 700);
+            this.MinimumSize = new System.Drawing.Size(1000, 650);
             this.Name = "MainForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -359,6 +405,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.VerticalSldr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HorizontalSldr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SensorAngleOffsetSldr)).EndInit();
+            this.OutPanel.ResumeLayout(false);
+            this.OutPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -391,6 +439,10 @@
         private System.Windows.Forms.Label SensorAngleOffsetValueLabel;
         private System.Windows.Forms.TrackBar SensorAngleOffsetSldr;
         private System.Windows.Forms.Label SensorAngleOffsetLabel;
+        private System.Windows.Forms.Panel OutPanel;
+        private System.Windows.Forms.Label PadLabel1;
+        private System.Windows.Forms.Label PadLabel2;
+        private System.Windows.Forms.Label PadLabel3;
     }
 }
 

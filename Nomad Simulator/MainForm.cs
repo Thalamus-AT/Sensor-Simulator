@@ -17,6 +17,8 @@ namespace Nomad_Simulator {
 
         private int jitter = 5;     // Magnitude of the random amount added to sensor readings (+/- jitter)
         private int pollTime = 100; // Length of pause between polls when recording
+
+        // Define the angle between the sensors in Degrees and Radians
         private static double sensorAngleDiffDeg = 25;
         private static double sensorAngleDiffRad = (sensorAngleDiffDeg / 180) * Math.PI;
 
@@ -25,6 +27,7 @@ namespace Nomad_Simulator {
         private int sensorCircleDiam = 1;
 
         private Label[] sensorLabels;
+        private Label[] padLabels;
         private Sensor[] sensors;
         private Plane plane;
 
@@ -35,6 +38,8 @@ namespace Nomad_Simulator {
             sensorLabels = new Label[] {SensorLabel11, SensorLabel12, SensorLabel13,
                                         SensorLabel21, SensorLabel22, SensorLabel23,
                                         SensorLabel31, SensorLabel32, SensorLabel33};
+
+            padLabels = new Label[] {PadLabel1, PadLabel2, PadLabel3};
 
             // Create the plane that will act as the obstacle
             plane = new Plane(new V3(400, 145, -100), new V3(600, 145, -100), new V3(400, 265, -100), new V3(600, 265, -100));
@@ -141,6 +146,28 @@ namespace Nomad_Simulator {
                 // Change the label value to the polled valu (max 5 characters) 
                 sensorLabels[i].Text = num.Substring(0, Math.Min(5, num.Length));
             }
+
+            double[] intensities = CalculateIntensities(values);
+            for (int i = 0; i < intensities.Length; i++) {
+                String num = intensities[i].ToString();
+
+                padLabels[i].Text = num.Substring(0, Math.Min(5, num.Length));
+
+                int colourVal = 255 - (int)(intensities[i] * 2.4);
+                padLabels[i].BackColor = Color.FromArgb(colourVal, colourVal, 240);
+            }
+        }
+
+        private double[] CalculateIntensities(double[] values) {
+            double leftAvg = (values[0] + values[1] + values[3] + values[4] + values[6] + values[7]) / 6;
+            double centreAvg = (values[0] + values[1] + values[2] + values[3] + values[4] + values[5] + values[6] + values[7] + values[8]) / 9;
+            double rightAvg = (values[1] + values[2] + values[4] + values[5] + values[7] + values[8]) / 6;
+
+            double leftNum = (500 - leftAvg) / 5;
+            double centreNum = (500 - centreAvg) / 5;
+            double rightNum = (500 - rightAvg) / 5;
+
+            return new double[] {leftNum, centreNum, rightNum};
         }
 
         private double[] PollSensors() {
