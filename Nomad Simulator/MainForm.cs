@@ -158,16 +158,29 @@ namespace Nomad_Simulator {
             }
         }
 
+        private static double[] leftWeights = { 1.5, 1, 0, 2.5, 1.5, 0, 1.5, 1, 0 };
+        private static double[] centreWeights = { 0.5, 1.25, 0.5, 1.25, 2, 1.25, 0.5, 1.25, 0.5 };
+        private static double[] rightWeights = { 0, 1, 1.5, 0, 1.5, 2.5, 0, 1, 1.5 };
+
         private double[] CalculateIntensities(double[] values) {
-            double leftAvg = (values[0] + values[1] + values[3] + values[4] + values[6] + values[7]) / 6;
-            double centreAvg = (values[0] + values[1] + values[2] + values[3] + values[4] + values[5] + values[6] + values[7] + values[8]) / 9;
-            double rightAvg = (values[1] + values[2] + values[4] + values[5] + values[7] + values[8]) / 6;
+            double leftAvg = getAverage(values, leftWeights);
+            double centreAvg = getAverage(values, centreWeights);
+            double rightAvg = getAverage(values, rightWeights);
+            Console.WriteLine("Left: " + leftAvg + "\tCentre: " + centreAvg + "\tRight: " + rightAvg);
 
             double leftNum = (500 - leftAvg) / 5;
             double centreNum = (500 - centreAvg) / 5;
             double rightNum = (500 - rightAvg) / 5;
 
             return new double[] {leftNum, centreNum, rightNum};
+        }
+
+        private double getAverage(double[] values, double[] weights) {
+            double total = 0;
+            for (int i = 0; i < values.Length; i++) {
+                total += values[i] * weights[i];
+            }
+            return total / 9;
         }
 
         private double[] PollSensors() {
