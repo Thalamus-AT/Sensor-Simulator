@@ -21,6 +21,7 @@ namespace Nomad_Simulator {
         // Define the angle between the sensors in Degrees and Radians
         private static double sensorAngleDiffDeg = 25;
         private static double sensorAngleDiffRad = (sensorAngleDiffDeg / 180) * Math.PI;
+        private static int runningAverageWindowSize = 10;
 
         private bool recording;     // Whether the form is currently recording
 
@@ -158,21 +159,38 @@ namespace Nomad_Simulator {
             }
         }
 
-        private static double[] leftWeights = { 1.5, 1, 0, 2.5, 1.5, 0, 1.5, 1, 0 };
-        private static double[] centreWeights = { 0.5, 1.25, 0.5, 1.25, 2, 1.25, 0.5, 1.25, 0.5 };
-        private static double[] rightWeights = { 0, 1, 1.5, 0, 1.5, 2.5, 0, 1, 1.5 };
+        private static double[] leftWeights = {     1.5,    1,      0,
+                                                    2.5,    1.5,    0,
+                                                    1.5,    1,      0 };
+
+        private static double[] centreWeights = {   0.5,     1.25,  0.5,
+                                                    1.25,   2,      1.25,
+                                                    0.5,    1.25,   0.5 };
+
+        private static double[] rightWeights = {    0,      1,      1.5,
+                                                    0,      1.5,    2.5,
+                                                    0,      1,      1.5 };
+
+        private double[][] prevValues = new double[runningAverageWindowSize][];
+        private int lastIndex = 0;
 
         private double[] CalculateIntensities(double[] values) {
+            double change = calculateChangeMagnitude(values);
+            double normalisedChange = (-1 / (1 + 10000 * (Math.Pow(100000, change - 1)))) + 1;
+
+            prevValues[lastIndex] = values;
+            lastIndex = (lastIndex + 1) % runningAverageWindowSize;
+
             double leftAvg = getAverage(values, leftWeights);
             double centreAvg = getAverage(values, centreWeights);
             double rightAvg = getAverage(values, rightWeights);
-            Console.WriteLine("Left: " + leftAvg + "\tCentre: " + centreAvg + "\tRight: " + rightAvg);
 
             double leftNum = (500 - leftAvg) / 5;
             double centreNum = (500 - centreAvg) / 5;
             double rightNum = (500 - rightAvg) / 5;
 
-            return new double[] {leftNum, centreNum, rightNum};
+            Console.WriteLine("Normalised Change: " + normalisedChange);
+            return new double[] { normalisedChange * leftNum, normalisedChange * centreNum, normalisedChange * rightNum };
         }
 
         private double getAverage(double[] values, double[] weights) {
@@ -181,6 +199,25 @@ namespace Nomad_Simulator {
                 total += values[i] * weights[i];
             }
             return total / 9;
+        }
+
+        private double calculateChangeMagnitude(double[] values) {
+            double[] totals = new double[9];
+            for (int i = 0; i < prevValues.Length; i++) {
+                if (prevValues[i] == null)
+                    continue;
+
+                for (int j = 0; j < totals.Length; j++) {
+                    totals[j] += prevValues[i][j];
+                }
+            }
+
+            double totalDiff = 0;
+            for (int i = 0; i < totals.Length; i++) {
+                totalDiff += Math.Abs((totals[i] / 9) - values[i]);
+            }
+
+            return (totalDiff / totals.Length) / 500;
         }
 
         private double[] PollSensors() {
